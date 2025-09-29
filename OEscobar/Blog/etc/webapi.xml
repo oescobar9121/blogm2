@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/oescobar-blog/posts/:id" method="GET">
+        <service class="OEscobar\Blog\Api\PostRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/oescobar-blog/posts" method="GET">
+        <service class="OEscobar\Blog\Api\PostRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+        <data>
+            <parameter name="searchCriteria" force="true">%searchCriteria%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/oescobar-blog/posts" method="POST">
+        <service class="OEscobar\Blog\Api\PostRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magento_Backend::admin"/>
+        </resources>
+        <data>
+            <parameter name="post" force="true">OEscobar\Blog\Api\Data\PostInterface</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/oescobar-blog/posts/:id" method="DELETE">
+        <service class="OEscobar\Blog\Api\PostRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Magento_Backend::admin"/>
+        </resources>
+    </route>
+
+    <!-- Comments -->
+    <route url="/V1/oescobar-blog/comments/:id" method="GET">
+        <service class="OEscobar\Blog\Api\CommentRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/oescobar-blog/comments" method="GET">
+        <service class="OEscobar\Blog\Api\CommentRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+        <data>
+            <parameter name="searchCriteria" force="true">%searchCriteria%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/oescobar-blog/comments" method="POST">
+        <service class="OEscobar\Blog\Api\CommentRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magento_Backend::admin"/>
+        </resources>
+        <data>
+            <parameter name="comment" force="true">OEscobar\Blog\Api\Data\CommentInterface</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/oescobar-blog/comments/:id" method="DELETE">
+        <service class="OEscobar\Blog\Api\CommentRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Magento_Backend::admin"/>
+        </resources>
+    </route>
+</routes>

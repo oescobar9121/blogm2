@@ -1,0 +1,44 @@
+<?php /** @var \OEscobar\Blog\Block\Adminhtml\Post\View $block */ ?>
+<?php if (!$post = $block->getPost()) : ?>
+    <div class="message message-error"><?= $block->escapeHtml(__('Post not found.')) ?></div>
+    <?php return; ?>
+<?php endif; ?>
+
+<div class="admin__data-grid-wrap">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('Post Details')) ?></span>
+    </div>
+    <table class="admin__table-secondary">
+        <tbody>
+        <tr>
+            <th><?= $block->escapeHtml(__('ID')) ?></th>
+            <td><?= (int)$post->getId() ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Title')) ?></th>
+            <td><?= $block->escapeHtml($post->getTitle()) ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Author')) ?></th>
+            <td><?= $block->escapeHtml($post->getAuthor()) ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Status')) ?></th>
+            <td><?= $post->getStatus() ? __('Active') : __('Inactive') ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Created At')) ?></th>
+            <td><?= $block->escapeHtml($post->getCreatedAt()) ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Content')) ?></th>
+            <td><?= nl2br($block->escapeHtml($post->getContent())) ?></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="admin__page-section-title" style="margin-top:20px;">
+    <span class="title"><?= $block->escapeHtml(__('Comments')) ?></span>
+</div>
+<p class="note"><?= $block->escapeHtml(__('Use the grid below to approve or delete comments for this post.')) ?></p>

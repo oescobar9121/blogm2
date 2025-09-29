@@ -1,0 +1,133 @@
+<?xml version="1.0" ?>
+    <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="provider" xsi:type="string">post_form.post_form_data_source</item>
+                <item name="deps" xsi:type="string">post_form.post_form_data_source</item>
+            </item>
+            <item name="label" xsi:type="string" translate="true">Post Information</item>
+            <item name="config" xsi:type="array">
+                <item name="dataScope" xsi:type="string">data</item>
+                <item name="namespace" xsi:type="string">post_form</item>
+            </item>
+            <item name="template" xsi:type="string">templates/form/collapsible</item>
+        </argument>
+        <settings>
+            <buttons>
+                <button name="back" class="OEscobar\Blog\Block\Adminhtml\Post\Edit\BackButton"/>
+                <button name="delete" class="OEscobar\Blog\Block\Adminhtml\Post\Edit\DeleteButton"/>
+                <button name="save" class="OEscobar\Blog\Block\Adminhtml\Post\Edit\SaveButton"/>
+                <button name="save_and_continue" class="OEscobar\Blog\Block\Adminhtml\Post\Edit\SaveAndContinueButton"/>
+            </buttons>
+            <dataScope>data</dataScope>
+            <deps>
+                <dep>post_form.post_form_data_source</dep>
+            </deps>
+        </settings>
+        <dataSource name="post_form_data_source">
+            <argument name="data" xsi:type="array">
+                <item name="js_config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+                </item>
+            </argument>
+            <settings>
+                <submitUrl path="oescobar_blog/post/save"/>
+            </settings>
+            <dataProvider class="OEscobar\Blog\Ui\DataProvider\Post\FormDataProvider" name="post_form_data_source">
+                <settings>
+                    <requestFieldName>id</requestFieldName>
+                    <primaryFieldName>post_id</primaryFieldName>
+                </settings>
+            </dataProvider>
+        </dataSource>
+        <fieldset name="blog_details">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="collapsible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Post Details</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataScope" xsi:type="string">post</item>
+                </item>
+            </argument>
+            <field name="post_id">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">Post Id</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="dataScope" xsi:type="string">post_id</item>
+                    </item>
+                </argument>
+                <settings>
+                    <dataType>text</dataType>
+                    <visible>false</visible>
+                </settings>
+            </field>
+            <field name="title">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">Title</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="dataScope" xsi:type="string">title</item>
+                    </item>
+                </argument>
+            </field>
+            <field name="content">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">Content</item>
+                        <item name="formElement" xsi:type="string">textarea</item>
+                        <item name="dataScope" xsi:type="string">content</item>
+                    </item>
+                </argument>
+            </field>
+            <field name="author">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">Author</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="dataScope" xsi:type="string">author</item>
+                    </item>
+                </argument>
+            </field>
+            <field name="status" formElement="select">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">State</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">select</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/select</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="label" xsi:type="string" translate="true">Inactive</item>
+                            <item name="value" xsi:type="number">0</item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="label" xsi:type="string" translate="true">Active</item>
+                            <item name="value" xsi:type="number">1</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
+            <field name="created_at" formElement="date">
+                <settings>
+                    <dataType>date</dataType>
+                    <label translate="true">Created</label>
+                    <visible>false</visible>
+                </settings>
+            </field>
+            <field name="updated_at" formElement="date">
+                <settings>
+                    <dataType>date</dataType>
+                    <label translate="true">Updating</label>
+                    <visible>false</visible>
+                </settings>
+            </field>
+        </fieldset>
+    </form>
+

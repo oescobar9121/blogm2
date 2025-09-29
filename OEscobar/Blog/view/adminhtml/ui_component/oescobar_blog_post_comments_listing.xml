@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">
+                oescobar_blog_post_comments_listing.oescobar_blog_post_comments_listing_data_source
+            </item>
+            <item name="deps" xsi:type="string">
+                oescobar_blog_post_comments_listing.oescobar_blog_post_comments_listing_data_source
+            </item>
+        </item>
+        <item name="spinner" xsi:type="string">oescobar_blog_post_comments_columns</item>
+    </argument>
+
+    <dataSource name="oescobar_blog_post_comments_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">
+                OEscobar\Blog\Ui\DataProvider\Comment\ListingDataProvider
+            </argument>
+            <argument name="name" xsi:type="string">
+                oescobar_blog_post_comments_listing_data_source
+            </argument>
+            <argument name="primaryFieldName" xsi:type="string">comment_id</argument>
+            <argument name="requestFieldName" xsi:type="string">comment_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">comment_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <argument name="aclResource" xsi:type="string">OEscobar_Blog::posts</argument>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="data" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">
+                        oescobar_blog_post_comments_listing.oescobar_blog_post_comments_listing.oescobar_blog_post_comments_columns.ids
+                    </item>
+                    <item name="indexField" xsi:type="string">comment_id</item>
+                </item>
+            </argument>
+
+            <action name="approve">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">approve</item>
+                        <item name="label" xsi:type="string" translate="true">Approve</item>
+                        <item name="url" xsi:type="url" path="oescobar_blog/comment/massApprove"/>
+                    </item>
+                </argument>
+            </action>
+
+            <action name="unapprove">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">unapprove</item>
+                        <item name="label" xsi:type="string" translate="true">Unapprove</item>
+                        <item name="url" xsi:type="url" path="oescobar_blog/comment/massUnapprove"/>
+                    </item>
+                </argument>
+            </action>
+
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="oescobar_blog/comment/massDelete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete Comments</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="oescobar_blog_post_comments_columns">
+        <selectionsColumn name="ids" sortOrder="5">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">comment_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+
+        <column name="comment_id" sortOrder="10">
+            <settings>
+                <label translate="true">ID</label>
+                <filter>textRange</filter>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="author" sortOrder="20">
+            <settings>
+                <label translate="true">Author</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <column name="content" sortOrder="30">
+            <settings>
+                <label translate="true">Content</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <column name="status" sortOrder="40" class="Magento\Ui\Component\Listing\Columns\Column">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Status</label>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <!-- Usa tu source si ya lo creaste; si no, deja opciones inline -->
+                <options>
+                    <option name="0" xsi:type="array">
+                        <item name="value" xsi:type="number">0</item>
+                        <item name="label" xsi:type="string" translate="true">Pending</item>
+                    </option>
+                    <option name="1" xsi:type="array">
+                        <item name="value" xsi:type="number">1</item>
+                        <item name="label" xsi:type="string" translate="true">Approved</item>
+                    </option>
+                </options>
+            </settings>
+        </column>
+
+        <column name="created_at" sortOrder="50" class="Magento\Ui\Component\Listing\Columns\Date"
+                component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <label translate="true">Created At</label>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" sortOrder="60"
+                       class="OEscobar\Blog\Ui\Component\Comment\Listing\Column\Actions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">comment_id</item>
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <!-- rutas para construir URLs -->
+            <argument name="approveUrl" xsi:type="string">oescobar_blog/comment/approve</argument>
+            <argument name="unapproveUrl" xsi:type="string">oescobar_blog/comment/unapprove</argument>
+            <argument name="deleteUrl"  xsi:type="string">oescobar_blog/comment/delete</argument>
+        </actionsColumn>
+
+    </columns>
+
+</listing>

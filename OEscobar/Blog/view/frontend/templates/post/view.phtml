@@ -1,0 +1,49 @@
+<?php /** @var \OEscobar\Blog\Block\Post\View $block */ ?>
+<?php $post = $block->getPost(); if (!$post) { echo '<div class="oescb-blog"><p>Post not found.</p></div>'; return; } ?>
+<div class="oescb-blog">
+    <article class="oescb-article">
+        <div class="oescb-meta">
+            <?= $block->escapeHtml($post->getAuthor()) ?> · <?= $block->escapeHtml($post->getCreatedAt()) ?>
+        </div>
+        <div class="oescb-divider"></div>
+        <div class="oescb-content">
+            <?= nl2br($block->escapeHtml($post->getContent())) ?>
+        </div>
+    </article>
+
+    <section class="oescb-comments">
+        <h2><?= $block->escapeHtml(__('Comments')) ?></h2>
+        <?php $comments = $block->getComments();?>
+        <?php if (!$comments): ?>
+            <p class="oescb-excerpt"><?= $block->escapeHtml(__('No comments yet.')) ?></p>
+        <?php else: ?>
+            <?php foreach ($comments as $c): ?>
+                <?php if ((int)$c->getStatus() === 1): ?>
+                    <div class="oescb-comment">
+                        <span class="oescb-comment__author"><?= $block->escapeHtml($c->getAuthor()) ?></span>
+                        <span class="oescb-comment__date"><?= $block->escapeHtml($c->getCreatedAt()) ?></span>
+                        <div class="oescb-comment__content"><?= nl2br($block->escapeHtml($c->getContent())) ?></div>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </section>
+
+    <section class="oescb-form">
+        <h3><?= $block->escapeHtml(__('Leave a comment')) ?></h3>
+        <form method="post" action="<?= $block->escapeUrl($block->getFormAction()) ?>">
+            <input type="hidden" name="form_key" value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"/>
+            <div>
+                <label for="author"><?= $block->escapeHtml(__('Name')) ?> *</label>
+                <input class="oescb-input" type="text" name="author" id="author" required />
+            </div>
+            <div>
+                <label for="content"><?= $block->escapeHtml(__('Comment')) ?> *</label>
+                <textarea class="oescb-textarea" name="content" id="content" rows="4" required></textarea>
+            </div>
+            <div>
+                <button class="oescb-button" type="submit"><?= $block->escapeHtml(__('Submit')) ?></button>
+            </div>
+        </form>
+    </section>
+</div>

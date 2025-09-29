@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ruleset name="OEscobar_Blog Coding Standard">
+    <description>Magento 2 + PSR-12 coding standard for OEscobar_Blog</description>
+
+    <file>Api</file>
+    <file>Model</file>
+    <file>Controller</file>
+    <file>Setup</file>
+    <file>view</file>
+    <file>etc</file>
+
+    <exclude-pattern>*/Test/*</exclude-pattern>
+    <exclude-pattern>*/generated/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <rule ref="PSR12"/>
+    <rule ref="Magento2"/>
+
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+    <rule ref="Generic.PHP.DisallowShortOpenTag"/>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
+    <config name="severity" value="5"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+</ruleset>

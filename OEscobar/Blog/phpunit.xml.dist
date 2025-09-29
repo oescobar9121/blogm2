@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+    bootstrap="vendor/autoload.php"
+    colors="true"
+    cacheResultFile=".phpunit.result.cache"
+>
+    <testsuites>
+        <testsuite name="OEscobar_Blog Unit Tests">
+            <directory>Test/Unit</directory>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory suffix=".php">Model</directory>
+            <directory suffix=".php">Api</directory>
+        </include>
+        <exclude>
+            <directory>Test</directory>
+            <directory>Setup</directory>
+            <directory>view</directory>
+        </exclude>
+    </source>
+
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="zend.assertions" value="1"/>
+        <ini name="assert.exception" value="1"/>
+    </php>
+</phpunit>

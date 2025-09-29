@@ -1,0 +1,33 @@
+<?php
+/** @var \OEscobar\Blog\Block\Post\ListPosts $block */
+$filters    = $block->getFilters();
+$collection = $block->getCollection();
+?>
+<div class="oescb-blog">
+
+    <?php if (!$collection->getSize()): ?>
+        <p><?= $block->escapeHtml(__('No posts found.')) ?></p>
+    <?php else: ?>
+        <div class="oescb-blog-post-list">
+            <?php foreach ($collection as $post): ?>
+                <article class="oescb-blog-post">
+                    <h2>
+                        <a href="<?= $block->escapeUrl($block->getPostUrl((int)$post->getId())) ?>">
+                            <?= $block->escapeHtml($post->getTitle()) ?>
+                        </a>
+                    </h2>
+                    <div class="oescb-blog-post__meta">
+                        <?= $block->escapeHtml(__('by %1 • %2', $post->getAuthor(), $post->getCreatedAt())) ?>
+                    </div>
+                    <div class="oescb-blog-post__excerpt">
+                        <?= $block->escapeHtml(mb_strimwidth((string)$post->getContent(), 0, 140, '…')) ?>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="oescb-pager">
+            <?= $block->getPagerHtml(); ?>
+        </div>
+    <?php endif; ?>
+</div>
